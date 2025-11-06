@@ -19,11 +19,11 @@ const userSchema = new mongoose.Schema({
     toObject: { virtuals: true }
 });
 
-// 🔗 Virtual populate: Link all tasks created by this user
+// Virtual populate: link all tasks created by this user
 userSchema.virtual('tasks', {
-    ref: 'task',            // The model to use
-    localField: '_id',      // Field on User
-    foreignField: 'userId'  // Field on Task
+    ref: 'task',
+    localField: '_id',
+    foreignField: 'userId'
 });
 
 const User = mongoose.models.user || mongoose.model('user', userSchema);

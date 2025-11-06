@@ -5,6 +5,6 @@ const { registerUser, loginUser, getUsers, getUserWithTasks} = require('../contr
 route.post('/register', registerUser);
 route.post('/login', loginUser);
 route.get('/get', getUsers);
-route.get('/get/:id', getUserWithTasks);
+route.get('/:id', getUserWithTasks);
 
 module.exports = route;

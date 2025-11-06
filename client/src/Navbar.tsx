@@ -1,5 +1,5 @@
 import { usePathname } from "next/navigation"
-import { Menu, LogOut, User } from "lucide-react"
+import { Menu, LogOut} from "lucide-react"
 import { Button } from "./components/ui/button"
 import {
   DropdownMenu,
@@ -8,13 +8,31 @@ import {
   DropdownMenuTrigger,
 } from "./components/ui/dropdown-menu"
 import { ModeToggle } from "./components/Theme"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { cn } from "./lib/utils"
 import { Link } from "react-router-dom"
+import { toast } from "sonner"
 
 export function Navbar() {
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [email, setEmail] = useState('')
+
+  // const router = useNavigate();
+  const logout = () => {
+    localStorage.clear();
+    toast.success('Logged out successfully');
+    window.location.href = '/';
+  }
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      setEmail(parsedUser?.user.name)
+    } else {
+      console.log("No user in localStorage");
+    }
+  }, []);
 
   const navLinks = [
     { name: "Dashboard", to: "/" },
@@ -28,26 +46,8 @@ export function Navbar() {
       <div className="max-w-full mx-auto flex items-center justify-between px-4 py-3">
         {/* Left - Logo */}
         <Link to="/" className="text-xl font-semibold tracking-tight">
-          Task<span className="text-primary">Flow</span>
+          TaskFlow Management
         </Link>
-
-        {/* Center - Nav Links (hidden on mobile) */}
-        {/* <div className="hidden md:flex gap-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.to}
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                pathname === link.to
-                  ? "text-primary"
-                  : "text-muted-foreground"
-              )}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div> */}
 
         {/* Right - Theme + Profile */}
         <div className="flex items-center gap-2">
@@ -55,16 +55,26 @@ export function Navbar() {
 
           {/* Profile Dropdown */}
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon" className="rounded-full">
-                <User className="h-5 w-5" />
-              </Button>
+              {
+                email ? (
+                  <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="icon" className="rounded-full">
+                    <span className="sr-only">User Menu</span>
+                    {email.charAt(0).toUpperCase()}
+                  </Button>
             </DropdownMenuTrigger>
+                ) : (
+                  <Button variant="outline" className="rounded-xs">
+                    <Link to="/login" className="flex items-center gap-2">
+                      Login
+                    </Link>
+                  </Button>
+                )}
             <DropdownMenuContent align="end">
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem className="text-red-500">
-                <LogOut className="h-4 w-4 mr-2" /> Logout
+              <DropdownMenuItem className="text-red-500 cursor-pointer" onClick={logout} >
+                <LogOut className="h-4 w-4" /> Logout
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

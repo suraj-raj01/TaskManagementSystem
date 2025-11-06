@@ -20,6 +20,19 @@ const getTasks = async (req, res) => {
     }
 };
 
+const getTaskById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const task = await TaskModel.findById(id).populate('userId');
+        if (!task) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+        res.status(200).json({ task });
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching task', error });
+    }
+};
+
 const updateTask = async (req, res) => {
     try {
         const { id } = req.params;
@@ -41,4 +54,4 @@ const deleteTask = async (req, res) => {
     }   
 };
 
-module.exports = { createTask, getTasks, updateTask, deleteTask };
+module.exports = { createTask, getTasks, updateTask, deleteTask, getTaskById };

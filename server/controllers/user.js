@@ -30,9 +30,9 @@ const loginUser = async (req, res) =>{
             return res.status(400).json({ message: 'Invalid email or password' });
         }
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.status(200).json({ message: 'Login successful', token });
+        res.status(200).json({ message: 'Login successfully completed ✅', token, user });
     } catch (error) {
-        res.status(500).json({ message: 'Error logging in', error });
+        res.status(500).json({ message: 'Error logging in ❌', error });
     }
 }
 
@@ -44,6 +44,7 @@ const getUsers = async (req, res) => {
         res.status(500).json({ message: 'Error fetching users', error });
     }
 };
+
 
 const getUserWithTasks = async (req, res) => {
     try {

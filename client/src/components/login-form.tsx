@@ -7,6 +7,7 @@ import { useState } from "react"
 import axios from "axios"
 import { Link, useNavigate } from "react-router-dom"
 import api from "../API"
+import { toast } from "sonner"
 
 export function LoginForm({
   className,
@@ -35,7 +36,7 @@ export function LoginForm({
       console.log(response.data);
       const user = response.data;
       localStorage.setItem("user", JSON.stringify(user, null, 2))
-      alert("Login Successful")
+      toast.success(response.data.message || "Login Successfully ")
       navigate("/dashboard")
     } catch (err: any) {
       // console.log(err.response.data)
@@ -48,13 +49,13 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden mt-5 p-0 md:w-2xl">
+      <Card className="overflow-hidden mt-5 px-10 md:w-3xl">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form onSubmit={handleSubmit} className="p-6 md:p-8">
+          <form onSubmit={handleSubmit} className="p-3 md:p-5">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
-                <p className="text-muted-foreground">Login to your Acme Inc account</p>
+                <p className="text-muted-foreground">Login to taskmanagement account</p>
               </div>
 
               <div className="grid gap-3">
@@ -82,6 +83,7 @@ export function LoginForm({
                 <Input
                   id="password"
                   type="password"
+                  placeholder="********"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -105,7 +107,7 @@ export function LoginForm({
 
               <div className="text-center text-sm">
                 Don&apos;t have an account?{' '}
-                <Link to="/signup" className="underline underline-offset-4">
+                <Link to="/register" className="underline underline-offset-4">
                   Sign up
                 </Link>
               </div>
@@ -113,7 +115,7 @@ export function LoginForm({
           </form>
           <div className="bg-transparent relative flex items-center justify-center">
             <img
-              src="/public/auth.jpg"
+              src="/public/auth.png"
               alt="Image"
               className=" flex items-center justify-center inset-0 h-auto w-full p-5 object-cover dark:brightness-[0.9]"
             />
