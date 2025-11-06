@@ -82,6 +82,14 @@ export default function Tasks() {
       header: "Description",
     },
     {
+      accessorKey: 'dueDate',
+      header: "Due Date",
+      cell: ({ row }) => {
+        const dueDate = new Date(row.original.dueDate);
+        return dueDate.toLocaleDateString();
+      },
+    },
+    {
       accessorKey: 'priority',
       header: "Priority",
       cell: ({ row }) => {

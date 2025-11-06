@@ -1,15 +1,22 @@
-const mongodb  = require("mongoose")
+const mongoose = require("mongoose");
 
-const mongodbUri = process.env.MONGODB_URI || "mongodb://localhost:27017/tms"
+const mongodbUri = process.env.MONGODB_URI;
 
-mongodb.connect(mongodbUri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log("MongoDB connected✅")
-}).catch(err => {
-    console.error("MongoDB connection error❌", err)
-})
-module.exports = {
-    mongodbUri
+if (!mongodbUri) {
+  console.error("❌ MONGODB_URI is not defined in environment variables.");
+  process.exit(1);
 }
+
+mongoose.connect(mongodbUri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => {
+  console.log("✅ MongoDB connected successfully");
+})
+.catch((err) => {
+  console.error("❌ MongoDB connection error:", err.message);
+  process.exit(1); // Optional: exit process if connection fails
+});
+
+module.exports = mongoose;

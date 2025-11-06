@@ -2,8 +2,8 @@ const TaskModel = require('../models/task');
 
 const createTask = async (req, res) => {
     try {
-        const { title, description, userId, status, priority } = req.body;
-        const newTask = new TaskModel({ title, description, userId, status, priority });
+        const { title, description, userId, dueDate, status, priority } = req.body;
+        const newTask = new TaskModel({ title, description, userId, dueDate, status, priority });
         await newTask.save();
         res.status(201).json({ message: 'Task created successfully', task: newTask });
     } catch (error) {

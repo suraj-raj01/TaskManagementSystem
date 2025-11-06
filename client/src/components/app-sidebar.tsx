@@ -42,7 +42,7 @@ const data = {
           url: "/dashboard/tasks",
         },
         {
-          title: "create task",
+          title: "Create task",
           url: "/dashboard/create-task",
         },
         

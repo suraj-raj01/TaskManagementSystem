@@ -9,6 +9,7 @@ import Tasks from "./pages/Tasks"
 import CreateTask from "./pages/CreateTask"
 import Login from "./pages/Login"
 import EditTask from "./pages/EditTask"
+import Taskview from "./pages/Taskview"
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route index element={<Profile />} />
         <Route path="profile" element={<Profile />} />
         <Route path="tasks" element={<Tasks />} />
+        <Route path="taskview/:id" element={<Taskview />} />
         <Route path="create-task" element={<CreateTask />} />
         <Route path="updatetask/:id" element={<EditTask />} />
         <Route path="*" element={<PageNotFound/>}/>

@@ -18,6 +18,7 @@ export default function CreateTask() {
     defaultValues: {
       title: "",
       description: "",
+      dueDate: "",
       status: "pending",
       priority: "medium",
     },
@@ -68,10 +69,11 @@ export default function CreateTask() {
           </Button>
         )}
       </div>
-     <Card className="max-w-full mx-auto w-md md:w-lg lg:w-2xl p-4">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4  p-4">
+     <Card className="max-w-full mt-10 mx-auto w-md md:w-lg lg:w-3xl p-4">
         <h1 className="text-2xl font-bold text-center">Create Task</h1>
-      <div>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4">
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div>
         <Label className='pb-2'>Title</Label>
         <Input {...register("title", { required: true })} placeholder="Enter task title" />
       </div>
@@ -79,6 +81,11 @@ export default function CreateTask() {
       <div>
         <Label className="pb-2">Description</Label>
         <Textarea {...register("description", { required: true })} placeholder="Enter task description" />
+      </div>
+
+      <div>
+        <Label className='pb-2'>Due Date</Label>
+        <Input {...register("dueDate", { required: true })} type="date" />
       </div>
 
       <div>
@@ -108,6 +115,7 @@ export default function CreateTask() {
           </SelectContent>
         </Select>
       </div>
+      </section>
 
       <Button type="submit" disabled={loading} className="w-full">
         {loading ? "Creating..." : "Create Task"}

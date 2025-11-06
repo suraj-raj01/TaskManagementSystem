@@ -18,6 +18,7 @@ export default function EditTask() {
         defaultValues: {
             title: "",
             description: "",
+            dueDate: "",
             status: "pending",
             priority: "medium",
         },
@@ -80,50 +81,57 @@ export default function EditTask() {
                     <Skeleton className="h-10 w-32" />
                 ) : (
                     <Button onClick={() => { navigate("/dashboard/tasks") }}>
-                       See All Tasks
+                        See All Tasks
                     </Button>
                 )}
             </div>
-            <Card className="max-w-full mx-auto w-md md:w-lg lg:w-2xl p-4">
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4  p-4">
-                    <h1 className="text-2xl font-bold text-center">Update Task</h1>
-                    <div>
-                        <Label className='pb-2'>Title</Label>
-                        <Input {...register("title", { required: true })} placeholder="Enter task title" />
-                    </div>
+            <Card className="max-w-full mt-10 mx-auto w-md md:w-lg lg:w-3xl p-4">
+                <h1 className="text-2xl font-bold text-center">Update Task</h1>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4">
+                    <section className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div>
+                            <Label className='pb-2'>Title</Label>
+                            <Input {...register("title", { required: true })} placeholder="Enter task title" />
+                        </div>
 
-                    <div>
-                        <Label className="pb-2">Description</Label>
-                        <Textarea {...register("description", { required: true })} placeholder="Enter task description" />
-                    </div>
+                        <div>
+                            <Label className="pb-2">Description</Label>
+                            <Textarea {...register("description", { required: true })} placeholder="Enter task description" />
+                        </div>
 
-                    <div>
-                        <Label className='pb-2'>Status</Label>
-                        <Select onValueChange={(val) => setValue("status", val)} defaultValue="pending">
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Select status" />
-                            </SelectTrigger>
-                            <SelectContent >
-                                <SelectItem value="pending">Pending</SelectItem>
-                                <SelectItem value="in-progress">In Progress</SelectItem>
-                                <SelectItem value="completed">Completed</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
+                        <div>
+                            <Label className='pb-2'>Due Date</Label>
+                            <Input {...register("dueDate", { required: true })} type="date" />
+                        </div>
 
-                    <div>
-                        <Label className='pb-2'>Priority</Label>
-                        <Select onValueChange={(val) => setValue("priority", val)} defaultValue="medium">
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Select priority" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="low">Low</SelectItem>
-                                <SelectItem value="medium">Medium</SelectItem>
-                                <SelectItem value="high">High</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
+                        <div>
+                            <Label className='pb-2'>Status</Label>
+                            <Select onValueChange={(val) => setValue("status", val)} defaultValue="pending">
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Select status" />
+                                </SelectTrigger>
+                                <SelectContent >
+                                    <SelectItem value="pending">Pending</SelectItem>
+                                    <SelectItem value="in-progress">In Progress</SelectItem>
+                                    <SelectItem value="completed">Completed</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        <div>
+                            <Label className='pb-2'>Priority</Label>
+                            <Select onValueChange={(val) => setValue("priority", val)} defaultValue="medium">
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Select priority" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="low">Low</SelectItem>
+                                    <SelectItem value="medium">Medium</SelectItem>
+                                    <SelectItem value="high">High</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    </section>
 
                     <Button type="submit" disabled={loading} className="w-full">
                         {loading ? "Updating..." : "Update Task"}

@@ -13,6 +13,10 @@ const taskSchema = new mongoose.Schema({
         ref: 'user',
         required: true
     },
+    dueDate: {
+        type: String,
+        required: true
+    },
     status: {
         type: String,
         enum: ['pending', 'in-progress', 'completed'],
