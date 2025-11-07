@@ -6,7 +6,7 @@ const db = require('./lib/myDb');
 const bodyparser = require('body-parser');
 
 app.use(cors());
-app.use(express.json());
+app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 
 
