@@ -7,7 +7,7 @@ const Layout = () => {
         <div>
             <Navbar/>
         </div>
-        <section className='px-10 py-2'>
+        <section className='p-2 md:px-10 py-2'>
             <Outlet />
         </section>
     </div>

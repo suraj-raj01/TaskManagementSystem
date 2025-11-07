@@ -1,38 +1,16 @@
 import { usePathname } from "next/navigation"
-import { Menu, LogOut} from "lucide-react"
+import { Menu} from "lucide-react"
 import { Button } from "./components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./components/ui/dropdown-menu"
 import { ModeToggle } from "./components/Theme"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { cn } from "./lib/utils"
 import { Link } from "react-router-dom"
-import { toast } from "sonner"
 
 export function Navbar() {
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
-  const [email, setEmail] = useState('')
 
   // const router = useNavigate();
-  const logout = () => {
-    localStorage.clear();
-    toast.success('Logged out successfully');
-    window.location.href = '/';
-  }
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-    if (user) {
-      const parsedUser = JSON.parse(user);
-      setEmail(parsedUser?.user.name)
-    } else {
-      console.log("No user in localStorage");
-    }
-  }, []);
 
   const navLinks = [
     { name: "Dashboard", to: "/" },
@@ -45,8 +23,8 @@ export function Navbar() {
     <nav className="px-5 w-full border-b bg-background/70 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-full mx-auto flex items-center justify-between px-4 py-3">
         {/* Left - Logo */}
-        <Link to="/" className="text-xl font-semibold tracking-tight">
-          TaskFlow Management
+        <Link to="/" className="text-sm md:text-xl font-semibold tracking-tight">
+          Task Management
         </Link>
 
         {/* Right - Theme + Profile */}
@@ -54,7 +32,7 @@ export function Navbar() {
           <ModeToggle />
 
           {/* Profile Dropdown */}
-          <DropdownMenu>
+          {/* <DropdownMenu>
               {
                 email ? (
                   <DropdownMenuTrigger asChild>
@@ -77,7 +55,7 @@ export function Navbar() {
                 <LogOut className="h-4 w-4" /> Logout
               </DropdownMenuItem>
             </DropdownMenuContent>
-          </DropdownMenu>
+          </DropdownMenu> */}
 
           {/* Mobile Menu Button */}
           <Button

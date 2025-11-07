@@ -51,7 +51,7 @@ export function RegisterForm({
 
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
-            <Card className="overflow-hidden mt-5 px-5 md:w-3xl">
+            <Card className="overflow-hidden mt-5 p-1 md:px-5 md:w-3xl">
                 <CardContent className="grid p-0 md:grid-cols-2">
                     <form onSubmit={handleSubmit} className="p-3 md:p-5">
                         <div className="flex flex-col gap-4">
@@ -128,7 +128,8 @@ export function RegisterForm({
                     </form>
                     <div className="bg-transparent relative flex items-center justify-center">
                         <img
-                            src="/public/auth.png"
+                            // src="/public/auth.png"
+                            src="https://cdn-icons-png.flaticon.com/512/6389/6389245.png"
                             alt="Image"
                             className=" flex items-center justify-center inset-0 h-auto w-full p-5 object-cover dark:brightness-[0.9]"
                         />

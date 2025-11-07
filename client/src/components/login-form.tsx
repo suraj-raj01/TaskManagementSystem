@@ -48,10 +48,10 @@ export function LoginForm({
 
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden mt-5 px-10 md:w-3xl">
+    <div className={cn("flex flex-col gap-4", className)} {...props}>
+      <Card className="overflow-hidden mt-5 px-2 md:px-10 md:w-3xl">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form onSubmit={handleSubmit} className="p-3 md:p-5">
+          <form onSubmit={handleSubmit} className="p-1 md:p-5">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
@@ -115,7 +115,8 @@ export function LoginForm({
           </form>
           <div className="bg-transparent relative flex items-center justify-center">
             <img
-              src="/public/auth.png"
+              // src="/public/auth.png"
+              src="https://cdn-icons-png.flaticon.com/512/6389/6389245.png"
               alt="Image"
               className=" flex items-center justify-center inset-0 h-auto w-full p-5 object-cover dark:brightness-[0.9]"
             />
