@@ -13,7 +13,12 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    userType: {
+        type: String,
+        enum: ['admin', 'regular'],
+        default: 'regular'
+    },
 }, {
     toJSON: { virtuals: true },
     toObject: { virtuals: true }

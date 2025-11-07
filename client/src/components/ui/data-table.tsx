@@ -279,7 +279,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center text-xs sm:text-sm"
                 >
-                  No results found
+                  No tasks found
                 </TableCell>
               </TableRow>
             )}

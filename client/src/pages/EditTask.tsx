@@ -47,7 +47,7 @@ export default function EditTask() {
         try {
             setLoading(true);
             await axios.put(`${api}/tasks/update/${id}`, { ...data, userId });
-            toast.success("Task updated successfully!");
+            toast.success("Task updated successfully ✅");
             reset();
             navigate("/dashboard/tasks");
         } catch (error) {

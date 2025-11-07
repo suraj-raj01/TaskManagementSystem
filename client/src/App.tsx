@@ -10,6 +10,10 @@ import CreateTask from "./pages/CreateTask"
 import Login from "./pages/Login"
 import EditTask from "./pages/EditTask"
 import Taskview from "./pages/Taskview"
+import { RegisterForm } from "./auth/Register"
+import Users from "./pages/Users"
+import UserView from "./pages/UserView"
+import {CreateUsers} from "./pages/CreateUser"
 
 const App = () => {
   return (
@@ -19,14 +23,18 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register/>} />
+        <Route path="/admin-register" element={<RegisterForm/>} />
         <Route path="*" element={<PageNotFound/>}/>
       </Route>
       <Route path="dashboard" element={<DashboardLayout />}>
         <Route index element={<Profile />} />
         <Route path="profile" element={<Profile />} />
         <Route path="tasks" element={<Tasks />} />
+        <Route path="users" element={<Users />} />
         <Route path="taskview/:id" element={<Taskview />} />
+        <Route path="userview/:id" element={<UserView />} />
         <Route path="create-task" element={<CreateTask />} />
+        <Route path="create-user" element={<CreateUsers />} />
         <Route path="updatetask/:id" element={<EditTask />} />
         <Route path="*" element={<PageNotFound/>}/>
       </Route>

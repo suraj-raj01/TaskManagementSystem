@@ -4,13 +4,13 @@ const jwt = require('jsonwebtoken');
 
 const registerUser = async (req, res) =>{
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, userType } = req.body;
         const existingUser = await UserModel.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists' });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new UserModel({ name, email, password: hashedPassword });
+        const newUser = new UserModel({ name, email, password: hashedPassword, userType });
         await newUser.save();
         res.status(201).json({ message: 'User registered successfully', user: newUser });
     } catch (error) {
@@ -61,5 +61,18 @@ const getUserWithTasks = async (req, res) => {
     }
 };
 
+const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedUser = await UserModel.findByIdAndDelete(id);
+        if (!deletedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json({ message: 'User deleted successfully', deletedUser });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting user', error });
+    }
+};
 
-module.exports = { registerUser, loginUser, getUsers, getUserWithTasks };
+
+module.exports = { registerUser, loginUser, getUsers, getUserWithTasks, deleteUser };

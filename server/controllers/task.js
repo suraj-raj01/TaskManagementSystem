@@ -5,7 +5,7 @@ const createTask = async (req, res) => {
         const { title, description, userId, dueDate, status, priority } = req.body;
         const newTask = new TaskModel({ title, description, userId, dueDate, status, priority });
         await newTask.save();
-        res.status(201).json({ message: 'Task created successfully', task: newTask });
+        res.status(201).json({ message: 'Task created successfully ✅', task: newTask });
     } catch (error) {
         res.status(500).json({ message: 'Error creating task', error });
     }
@@ -38,7 +38,7 @@ const updateTask = async (req, res) => {
         const { id } = req.params;
         const updates = req.body;
         const updatedTask = await TaskModel.findByIdAndUpdate(id, updates, { new: true });
-        res.status(200).json({ message: 'Task updated successfully', task: updatedTask });
+        res.status(200).json({ message: 'Task updated successfully ✅', task: updatedTask });
     } catch (error) {
         res.status(500).json({ message: 'Error updating task', error });
     }

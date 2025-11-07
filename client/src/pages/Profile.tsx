@@ -24,12 +24,13 @@ export default function Profile() {
 
     return (
         <section>
-            <div className="max-w-2xl mx-auto p-6 space-y-6">
+            <div className="w-md p-6 space-y-6">
             {/* Profile Info */}
             <Card className="shadow-md rounded-2xl border">
                 <CardHeader>
                     <CardTitle className="text-2xl font-semibold">{data?.name}</CardTitle>
-                    <p className="text-gray-500">{data?.email}</p>
+                    <p className="text-gray-500 font-semibold">Email : {data?.email}</p>
+                    <p className="text-gray-500 font-semibold">User type : {data?.userType}</p>
                 </CardHeader>
             </Card>
         </div>

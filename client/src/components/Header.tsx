@@ -19,7 +19,7 @@ const Header = () => {
             toast.success("Logged out successfully");
             window.location.href = "/";
         } else {
-            toast.info("Logout cancelled");
+            toast.info("Logout cancelled ❌");
         }
     };
 

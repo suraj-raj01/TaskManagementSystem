@@ -1,5 +1,5 @@
 import * as React from "react"
-import {LayoutDashboardIcon, Minus, Plus } from "lucide-react"
+import { LayoutDashboardIcon, Minus, Plus } from "lucide-react"
 import {
   Collapsible,
   CollapsibleContent,
@@ -20,8 +20,11 @@ import {
 } from "../components/ui/sidebar"
 import { Link } from "react-router-dom"
 
+
+
 // This is sample data.
 const data = {
+
   navMain: [
     {
       title: "Profile",
@@ -38,20 +41,60 @@ const data = {
       url: "#",
       items: [
         {
-          title: "Tasks Overview",
+          title: "Your tasks",
           url: "/dashboard/tasks",
         },
         {
           title: "Create task",
           url: "/dashboard/create-task",
         },
-        
+
+      ],
+    },
+  ],
+  navSecondary: [
+    {
+      title: "Profile",
+      url: "#",
+      items: [
+        {
+          title: "Profile Overview",
+          url: "/dashboard/profile",
+        },
+      ],
+    },
+    {
+      title: "Users",
+      url: "#",
+      items: [
+        {
+          title: "All users",
+          url: "/dashboard/users",
+        },
+      ],
+    },
+    {
+      title: "Tasks",
+      url: "#",
+      items: [
+        {
+          title: "Your tasks",
+          url: "/dashboard/tasks",
+        },
+        {
+          title: "Create task",
+          url: "/dashboard/create-task",
+        },
+
       ],
     },
   ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const user = localStorage.getItem("user");
+  const userType = user ? JSON.parse(user).user.userType : null;
+  const navItems = userType && userType === "regular" ? data.navMain : data.navSecondary;
   return (
     <Sidebar {...props}>
       <SidebarHeader>
@@ -75,7 +118,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
-            {data.navMain.map((item, index) => (
+            {navItems.map((item, index) => (
               <Collapsible
                 key={item.title}
                 defaultOpen={index === 0}
