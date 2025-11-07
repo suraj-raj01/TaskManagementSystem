@@ -23,7 +23,7 @@ export function Navbar() {
     <nav className="px-5 w-full border-b bg-background/70 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-full mx-auto flex items-center justify-between px-4 py-3">
         {/* Left - Logo */}
-        <Link to="/" className="text-sm md:text-xl font-semibold tracking-tight">
+        <Link to="/" className="text-md md:text-xl font-semibold tracking-tight">
           Task Management
         </Link>
 
