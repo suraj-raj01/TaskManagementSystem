@@ -299,24 +299,26 @@ export function DataTable<TData, TValue>({
           <>
             <div className="flex flex-wrap justify-center sm:justify-start gap-2">
               <Button
-                variant="outline"
+                // variant="outline"
                 size="sm"
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage <= 1}
+                className='rounded-xs cursor-pointer'
               >
                 Previous
               </Button>
               <Button
-                variant="outline"
+                // variant="outline"
                 size="sm"
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage >= pageCount}
+                className='rounded-xs cursor-pointer'
               >
                 Next
               </Button>
             </div>
             <span className="text-center sm:text-right">
-              Page {currentPage} of {pageCount}
+              Page <strong>{currentPage}</strong> of <strong>{pageCount}</strong>
             </span>
           </>
         )}

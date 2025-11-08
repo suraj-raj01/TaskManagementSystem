@@ -1,4 +1,3 @@
-import { LogOut } from "lucide-react"
 import { Separator } from "../components/ui/separator"
 import {
     SidebarTrigger,
@@ -8,21 +7,26 @@ import { ModeToggle } from "./Theme"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { Avatar } from "@radix-ui/react-avatar"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "../components/ui/dialog";
+import { Button } from "../components/ui/button";
 const Header = () => {
     const [email, setEmail] = useState('')
-
+    const [open, setOpen] = useState(false);
     // const router = useNavigate();
     const logout = () => {
-        const confirmLogout = window.confirm("Are you sure you want to log out?");
-        if (confirmLogout) {
-            localStorage.clear();
-            toast.success("Logged out successfully");
-            window.location.href = "/";
-        } else {
-            toast.info("Logout cancelled ❌");
-        }
+        localStorage.clear();
+        toast.success("Logged out successfully");
+        window.location.href = "/";
     };
-
+    
     useEffect(() => {
         const user = localStorage.getItem('user');
         if (user) {
@@ -43,11 +47,11 @@ const Header = () => {
                         className="mr-2 data-[orientation=vertical]:h-4"
                     />
                 </section>
-                <section className="flex items-center justify-center font-bold gap-2">
+                <section className="flex items-center justify-center font-semibold gap-2">
                     <div className="flex items-center justify-center gap-2">
                         {email && (
                             <Avatar className="inline-flex border h-9 w-9 shrink-0 select-none items-center justify-center overflow-hidden bg-gray-500 rounded-full align-middle">
-                                <span className="text-md font-medium leading-none text-white">
+                                <span className="text-md font-bold flex items-center justify-center leading-none text-white">
                                     {email.charAt(0).toUpperCase()}
                                 </span>
                             </Avatar>
@@ -55,7 +59,41 @@ const Header = () => {
                         {email}
                     </div>
                     <ModeToggle />
-                    <LogOut onClick={logout} className=" dark:bg-white cursor-pointer dark:text-red-600 bg-red-600 text-white h-8 w-8 p-2 rounded-full " />
+                    {/* <LogOut onClick={logout} className=" dark:bg-white cursor-pointer dark:text-red-600 bg-red-600 text-white h-8 w-8 p-2 rounded-full " /> */}
+                    <Dialog open={open} onOpenChange={setOpen}>
+                        <DialogTrigger asChild>
+                            <Button variant="destructive" size="sm" className="cursor-pointer">
+                                Logout
+                            </Button>
+                        </DialogTrigger>
+
+                        <DialogContent className="sm:max-w-md">
+                            <DialogHeader>
+                                <DialogTitle>Confirm Logout</DialogTitle>
+                                <DialogDescription>
+                                    Are you sure you want to log out? You will need to sign in again to access your account.
+                                </DialogDescription>
+                            </DialogHeader>
+
+                            <DialogFooter className="flex justify-end gap-2">
+                                <Button variant="outline" onClick={() => {
+                                    setOpen(false);
+                                    toast.info("Logout cancelled ❌");
+                                }}>
+                                    Cancel
+                                </Button>
+                                <Button
+                                    variant="destructive"
+                                    onClick={() => {
+                                        setOpen(false);
+                                        logout();
+                                    }}
+                                >
+                                    Log Out
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
                 </section>
             </header>
         </section>

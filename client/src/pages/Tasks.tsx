@@ -37,12 +37,16 @@ export default function Tasks() {
         setTasks(response?.data?.category || [])
         console.log(response.data, "search data");
       } else {
-        response = await axios.get(`${api}/users/${id}`)
-        setTasks(response?.data?.user?.tasks || [])
+        response = await axios.get(`${api}/users/${id}?page=${page}&limit=6`)
         console.log("tasks data", response.data)
+        setTasks(response?.data?.user?.tasks || [])
+        setPage(response?.data?.pagination?.currentPage || 1)
+        setPageCount(response?.data?.pagination.totalPages || 1)
+        console.log(response?.data?.pagination.totalPages,'totalpages')
       }
-      const { data } = response
-      setPageCount(data.totalPages || 1)
+      // const { data } = response
+      // setPage(data?.pagination?.currentPage || 1)
+      // setPageCount(data?.pagination.totalPages || 1)
     } catch (error) {
       console.error('Error fetching tasks:', error)
     } finally {
@@ -52,7 +56,7 @@ export default function Tasks() {
 
   useEffect(() => {
     fetchCategories();
-  }, [searchQuery])
+  }, [page,searchQuery])
 
 
   const deleteTask = async (id: any) => {

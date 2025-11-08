@@ -1,4 +1,5 @@
 const UserModel = require('../models/users');
+const TaskModel  = require("../models/task")
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 
@@ -49,17 +50,44 @@ const getUsers = async (req, res) => {
 const getUserWithTasks = async (req, res) => {
     try {
         const { id } = req.params;
-        // 🔥 Find user and populate their tasks
-        const user = await UserModel.findById(id).populate('tasks');
+        const { page = 1, limit = 10 } = req.query; // default: page 1, 10 items per page
+
+        const skip = (page - 1) * limit;
+
+        // ✅ Find user and populate their tasks with pagination
+        const user = await UserModel.findById(id)
+            .populate({
+                path: 'tasks',
+                options: {
+                    skip: parseInt(skip),
+                    limit: parseInt(limit),
+                },
+            });
+
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        res.status(200).json({ user });
+
+        // Optionally count total tasks for pagination metadata
+        const data = await UserModel.findById(id).populate('tasks')
+        const totalTasks = data.tasks.length;
+        console.log(totalTasks,'data')
+
+        res.status(200).json({
+            user,
+            pagination: {
+                totalTasks,
+                currentPage: parseInt(page),
+                totalPages: Math.ceil(totalTasks / limit),
+                limit: parseInt(limit),
+            },
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error fetching user', error: error.message });
     }
 };
+
 
 const deleteUser = async (req, res) => {
     try {

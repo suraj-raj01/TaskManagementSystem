@@ -14,6 +14,7 @@ import { RegisterForm } from "./auth/Register"
 import Users from "./pages/Users"
 import UserView from "./pages/UserView"
 import {CreateUsers} from "./pages/CreateUser"
+import Dashboard from "./pages/Dashboard"
 
 const App = () => {
   return (
@@ -27,7 +28,7 @@ const App = () => {
         <Route path="*" element={<PageNotFound/>}/>
       </Route>
       <Route path="dashboard" element={<DashboardLayout />}>
-        <Route index element={<Profile />} />
+        <Route index element={<Dashboard />} />
         <Route path="profile" element={<Profile />} />
         <Route path="tasks" element={<Tasks />} />
         <Route path="users" element={<Users />} />
