@@ -1,9 +1,9 @@
 const UserModel = require('../models/users');
-const TaskModel  = require("../models/task")
+const TaskModel = require("../models/task")
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 
-const registerUser = async (req, res) =>{
+const registerUser = async (req, res) => {
     try {
         const { name, email, password, userType } = req.body;
         const existingUser = await UserModel.findOne({ email });
@@ -19,13 +19,13 @@ const registerUser = async (req, res) =>{
     }
 }
 
-const loginUser = async (req, res) =>{
+const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await UserModel.findOne({ email });
         if (!user) {
             return res.status(400).json({ message: 'Invalid email or password' });
-        }   
+        }
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
             return res.status(400).json({ message: 'Invalid email or password' });
@@ -38,13 +38,34 @@ const loginUser = async (req, res) =>{
 }
 
 const getUsers = async (req, res) => {
-    try {
-        const users = await UserModel.find()
-        res.status(200).json({ users });
-    } catch (error) {
-        res.status(500).json({ message: 'Error fetching users', error });
-    }
+  try {
+    const { page = 1, limit = 10 } = req.query; // Default values
+
+    const pageNum = parseInt(page);
+    const limitNum = parseInt(limit);
+    const skip = (pageNum - 1) * limitNum;
+
+    // Fetch users with pagination
+    const users = await UserModel.find()
+      .skip(skip)
+      .limit(limitNum)
+      .sort({ createdAt: -1 }); // optional: newest first
+
+    // Optional: total count for frontend
+    const totalUsers = await UserModel.countDocuments();
+
+    res.status(200).json({
+      success: true,
+      totalUsers,
+      totalPages: Math.ceil(totalUsers / limitNum),
+      currentPage: pageNum,
+      users,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching users", error });
+  }
 };
+
 
 
 const getUserWithTasks = async (req, res) => {
@@ -71,7 +92,6 @@ const getUserWithTasks = async (req, res) => {
         // Optionally count total tasks for pagination metadata
         const data = await UserModel.findById(id).populate('tasks')
         const totalTasks = data.tasks.length;
-        console.log(totalTasks,'data')
 
         res.status(200).json({
             user,
@@ -102,5 +122,27 @@ const deleteUser = async (req, res) => {
     }
 };
 
+const searchUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const query = {
+            $or: [
+                { name: { $regex: id, $options: "i" } },
+                { email: { $regex: id, $options: "i" } }
+            ].filter(Boolean), // removes null values
+        };
 
-module.exports = { registerUser, loginUser, getUsers, getUserWithTasks, deleteUser };
+        const users = await UserModel.find(query);
+
+        if (!users.length) {
+            return res.status(404).json({ message: "No users found" });
+        }
+
+        res.status(200).json({ message: "Users found successfully", users });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting user', error });
+    }
+};
+
+
+module.exports = { registerUser, loginUser, getUsers, getUserWithTasks, deleteUser, searchUser };
