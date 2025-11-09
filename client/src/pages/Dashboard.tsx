@@ -1,4 +1,12 @@
+import { useEffect } from "react";
+
 const Dashboard = () => {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+        useEffect(() => {
+            if (!user || !user.token) {
+                window.location.href = "/login";
+            }
+        }, []);
     return (
         <div>
             <div className="flex flex-1 flex-col gap-4 p-4">

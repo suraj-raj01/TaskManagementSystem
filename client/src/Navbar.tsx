@@ -5,7 +5,7 @@ import { ModeToggle } from "./components/Theme"
 import { useState } from "react"
 import { cn } from "./lib/utils"
 import { Link } from "react-router-dom"
-
+import { SparklesText } from "./components/ui/sparkles-text"
 export function Navbar() {
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
@@ -13,18 +13,15 @@ export function Navbar() {
   // const router = useNavigate();
 
   const navLinks = [
-    { name: "Dashboard", to: "/" },
-    { name: "Tasks", to: "/tasks" },
-    { name: "Teams", to: "/teams" },
-    { name: "Reports", to: "/reports" },
+    { name: "Dashboard", to: "/dashboard" },
   ]
 
   return (
     <nav className="px-5 w-full border-b bg-background/70 backdrop-blur-md sticky top-0 z-50">
-      <div className="max-w-full mx-auto flex items-center justify-between px-4 py-3">
+      <div className="max-w-full mx-auto flex items-center justify-between md:px-4 py-3">
         {/* Left - Logo */}
         <Link to="/" className="text-md md:text-xl font-semibold tracking-tight">
-          Task Management
+          <SparklesText>TASK MANAGEMENT</SparklesText>
         </Link>
 
         {/* Right - Theme + Profile */}

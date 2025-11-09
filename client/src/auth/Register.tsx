@@ -1,5 +1,4 @@
 import { cn } from "../lib/utils"
-import { Button } from "../components/ui/button"
 import { Card, CardContent } from "../components/ui/card"
 import { Input } from "../components/ui/input"
 import { Label } from "../components/ui/label"
@@ -9,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import api from "../API"
 import { toast } from "sonner"
+import { RainbowButton } from "../components/ui/rainbow-button"
 
 export function RegisterForm({
     className,
@@ -53,7 +53,7 @@ export function RegisterForm({
 
 
     return (
-       <div className="flex flex-col items-center justify-center p-0 md:p-8">
+       <div className="flex flex-col items-center md:mt-10 justify-center p-0 md:p-8">
          <div className={cn("flex flex-col gap-6", className)} {...props}>
             <Card className="overflow-hidden mt-5 p-1 md:px-5 md:w-3xl">
                 <CardContent className="grid p-0 md:grid-cols-2">
@@ -108,7 +108,7 @@ export function RegisterForm({
                             </div>
 
                             <div>
-                                <Label className='pb-2'>Status</Label>
+                                <Label className='pb-2'>Role</Label>
                                 <Select onValueChange={(val) => setUserType(val)} defaultValue="regular">
                                     <SelectTrigger className="w-full">
                                         <SelectValue placeholder="Select user type" />
@@ -122,16 +122,16 @@ export function RegisterForm({
 
                             {error && <p className="text-sm text-red-600">{error}</p>}
 
-                            <Button type="submit" className="w-full" disabled={loading}>
+                            <RainbowButton type="submit" className="w-full" disabled={loading}>
                                 {loading ? 'Registering...' : 'Register'}
-                            </Button>
+                            </RainbowButton>
 
                             {/* Social Login */}
-                            <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+                            {/* <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                                 <span className="bg-card text-muted-foreground relative z-10 px-2">
                                     Or continue with
                                 </span>
-                            </div>
+                            </div> */}
 
 
 

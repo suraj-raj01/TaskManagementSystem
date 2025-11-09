@@ -1,5 +1,4 @@
 import { cn } from "../lib/utils"
-import { Button } from "../components/ui/button"
 import { Card, CardContent } from "../components/ui/card"
 import { Input } from "../components/ui/input"
 import { Label } from "../components/ui/label"
@@ -8,6 +7,7 @@ import axios from "axios"
 import { Link, useNavigate } from "react-router-dom"
 import api from "../API"
 import { toast } from "sonner"
+import { RainbowButton } from "./ui/rainbow-button"
 
 export function LoginForm({
   className,
@@ -92,16 +92,16 @@ export function LoginForm({
 
               {error && <p className="text-sm text-red-600">{error}</p>}
 
-              <Button type="submit" className="w-full" disabled={loading}>
+              <RainbowButton type="submit" className="w-full" disabled={loading}>
                 {loading ? 'Logging in...' : 'Login'}
-              </Button>
+              </RainbowButton>
 
               {/* Social Login */}
-              <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+              {/* <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                 <span className="bg-card text-muted-foreground relative z-10 px-2">
                   Or continue with
                 </span>
-              </div>
+              </div> */}
 
               
 

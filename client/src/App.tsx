@@ -15,6 +15,8 @@ import Users from "./pages/Users"
 import UserView from "./pages/UserView"
 import {CreateUsers} from "./pages/CreateUser"
 import Dashboard from "./pages/Dashboard"
+import ChatRoom from "./chats/ChatRoom"
+import ChatLayout from './chats/chatLayout';
 
 const App = () => {
   return (
@@ -37,6 +39,11 @@ const App = () => {
         <Route path="create-task" element={<CreateTask />} />
         <Route path="create-user" element={<CreateUsers />} />
         <Route path="updatetask/:id" element={<EditTask />} />
+        <Route path="*" element={<PageNotFound/>}/>
+      </Route>
+      <Route path="chatting" element={<ChatLayout />}>
+        <Route index element={<ChatRoom />} />
+        <Route path="chat" element={<ChatRoom />} />
         <Route path="*" element={<PageNotFound/>}/>
       </Route>
     </Routes>
