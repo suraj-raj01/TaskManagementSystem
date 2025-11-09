@@ -24,9 +24,9 @@ export default function Profile() {
 
     return (
         <section>
-            <div className="md:w-100 w-full p-6 space-y-6">
+            <div className="md:w-100 w-full p-2">
             {/* Profile Info */}
-            <Card className="shadow-md rounded-2xl border">
+            <Card className="shadow-md rounded-sm border">
                 <CardHeader>
                     <CardTitle className="text-2xl font-semibold">{data?.name}</CardTitle>
                     <p className="text-gray-500 font-semibold">Email : {data?.email}</p>

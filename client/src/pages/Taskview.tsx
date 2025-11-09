@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import api from "../API";
 import axios from "axios";
+import { Card } from "../components/ui/card";
 
 export default function Taskview() {
     const id = useParams().id;
@@ -12,7 +13,7 @@ export default function Taskview() {
             try {
                 const response = await axios.get(`${api}/tasks/get/${id}`);
                 setTask(response.data.task);
-                console.log(response.data, 'data')
+                // console.log(response.data, 'data')
             } catch (error) {
                 console.log(error);
             }
@@ -21,10 +22,10 @@ export default function Taskview() {
     }, [id]);
 
     return (
-        <div>
+        <div className="md:p-2">
             {task ? (
-                <div className="max-w-md bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-800">
-                    <h2 className="font-semibold text-2xl text-gray-800 dark:text-gray-100 mb-2">
+                <Card className="max-w-md rounded-sm shadow-md p-3 border">
+                    <h2 className="font-semibold text-2xl text-gray-800 dark:text-gray-100">
                         {task?.title || "Untitled Task"}
                     </h2>
 
@@ -35,7 +36,7 @@ export default function Taskview() {
                     <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
                             <span className="font-medium text-gray-700 dark:text-gray-400">Status:</span>
-                            <span className={`px-2 py-1 rounded-full text-xs font-semibold ${task?.status === "completed" ? "bg-green-100 text-green-700" :
+                            <span className={`px-2 py-1 rounded-sm text-xs font-semibold ${task?.status === "completed" ? "bg-green-100 text-green-700" :
                                     task?.status === "in progress" ? "bg-yellow-100 text-yellow-700" :
                                         "bg-gray-100 text-gray-700"
                                 }`}>
@@ -45,7 +46,7 @@ export default function Taskview() {
 
                         <div className="flex justify-between">
                             <span className="font-medium text-gray-700 dark:text-gray-400">Priority:</span>
-                            <span className={`px-2 py-1 rounded-full text-xs font-semibold ${task?.priority === "high" ? "bg-red-100 text-red-700" :
+                            <span className={`px-2 py-1 rounded-sm text-xs font-semibold ${task?.priority === "high" ? "bg-red-100 text-red-700" :
                                     task?.priority === "medium" ? "bg-yellow-100 text-yellow-700" :
                                         "bg-green-100 text-green-700"
                                 }`}>
@@ -58,7 +59,7 @@ export default function Taskview() {
                             <span>{task?.dueDate ? new Date(task.dueDate).toLocaleDateString() : "N/A"}</span>
                         </div>
 
-                        <div className="flex justify-between text-gray-600 dark:text-gray-400">
+                        {/* <div className="flex justify-between text-gray-600 dark:text-gray-400">
                             <span>Created At:</span>
                             <span>{task?.createdAt ? new Date(task.createdAt).toLocaleDateString() : "N/A"}</span>
                         </div>
@@ -66,9 +67,9 @@ export default function Taskview() {
                         <div className="flex justify-between text-gray-600 dark:text-gray-400">
                             <span>Updated At:</span>
                             <span>{task?.updatedAt ? new Date(task.updatedAt).toLocaleDateString() : "N/A"}</span>
-                        </div>
+                        </div> */}
                     </div>
-                </div>
+                </Card>
 
             ) : (
                 <p>Loading...</p>

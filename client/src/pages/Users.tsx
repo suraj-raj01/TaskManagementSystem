@@ -29,16 +29,17 @@ export default function Users() {
       setLoading(true)
       let response
       if (searchQuery) {
-        response = await axios.get(`${api}/users/search/${searchQuery}`)
+        response = await axios.post(`${api}/users/search/${searchQuery}`)
         setUsers(response?.data?.users || [])
-        console.log(response.data, "search data");
+        // console.log(response.data, "search data");
       } else {
-        response = await axios.get(`${api}/users/get`)
+        response = await axios.get(`${api}/users/get?page=${page}&limit=5`)
         setUsers(response?.data?.users || [])
         console.log("users data", response.data)
+        const { data } = response
+        setPageCount(data.totalPages || 1)
+        setPage(data.currentPage || 1)
       }
-      const { data } = response
-      setPageCount(data.totalPages || 1)
     } catch (error) {
       console.error('Error fetching users:', error)
     } finally {
@@ -48,17 +49,18 @@ export default function Users() {
 
   useEffect(() => {
     fetchUsers();
-  }, [searchQuery])
+  }, [page,searchQuery])
 
 
   const deleteUser = async (id: any) => {
     try {
-      await axios.delete(`${api}/tasks/delete/${id}`)
-      toast.success('Task deleted successfully')
+      const res = await axios.delete(`${api}/users/${id}`)
+      // console.log(res.data,'data')
+      toast.success(res.data.message || 'User deleted successfully')
       fetchUsers();
     } catch (error) {
-      console.error('Error deleting task:', error)
-      toast.error('Failed to delete task. Please try again.')
+      console.error('Error deleting user:', error)
+      toast.error('Failed to delete user. Please try again.')
     }
   }
 

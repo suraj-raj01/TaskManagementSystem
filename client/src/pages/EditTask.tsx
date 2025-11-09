@@ -85,7 +85,7 @@ export default function EditTask() {
                     </Button>
                 )}
             </div>
-            <Card className="max-w-full mt-10 mx-auto w-md md:w-lg lg:w-3xl p-4">
+            <Card className="max-w-full rounded-sm mt-10 mx-auto w-md md:w-lg lg:w-3xl p-4">
                 <h1 className="text-2xl font-bold text-center">Update Task</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4">
                     <section className="grid grid-cols-1 md:grid-cols-2 gap-3">

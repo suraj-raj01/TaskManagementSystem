@@ -1,6 +1,7 @@
 import { cn } from "../lib/utils"
 import { Button } from "../components/ui/button"
 import { Card, CardContent } from "../components/ui/card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { Input } from "../components/ui/input"
 import { Label } from "../components/ui/label"
 import { useState } from "react"
@@ -17,6 +18,7 @@ export function CreateUsers({
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
+    const [userType, setUserType] = useState('regular')
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
 
@@ -30,7 +32,8 @@ export function CreateUsers({
         const payload = {
             name: name,
             email: email,
-            password: password
+            password: password,
+            userType:userType
         }
 
         try {
@@ -39,7 +42,7 @@ export function CreateUsers({
             const user = response.data;
             localStorage.setItem("user", JSON.stringify(user, null, 2))
             toast.success(response.data.message || "Registration Successful ")
-            navigate("/login")
+            navigate("/dashboard/users")
         } catch (err: any) {
             // console.log(err.response.data)
             setError(err.response.data.message)
@@ -52,7 +55,7 @@ export function CreateUsers({
     return (
         <section className="flex flex-col items-center justify-center p-0 md:p-8">
             <div className={cn("flex flex-col gap-6", className)} {...props}>
-            <Card className="overflow-hidden mt-5 p-1 md:px-5 md:w-2xl">
+            <Card className="overflow-hidden mt-5 p-1 md:px-5 rounded-sm md:w-2xl">
                 <CardContent className="grid p-0 md:grid-cols-1">
                     <form onSubmit={handleSubmit} className="p-3 md:p-5">
                         <div className="flex flex-col gap-4">
@@ -104,10 +107,23 @@ export function CreateUsers({
                                 />
                             </div>
 
+                            <div>
+                                <Label className='pb-2'>Status</Label>
+                                <Select onValueChange={(val) => setUserType(val)} defaultValue="regular">
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Select user type" />
+                                    </SelectTrigger>
+                                    <SelectContent >
+                                        <SelectItem value="admin">Admin</SelectItem>
+                                        <SelectItem value="regular">Regular</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+
                             {error && <p className="text-sm text-red-600">{error}</p>}
 
-                            <Button type="submit" className="w-full" disabled={loading}>
-                                {loading ? 'Registering...' : 'Register'}
+                            <Button type="submit" className="w-full cursor-pointer" disabled={loading}>
+                                {loading ? 'Creating...' : 'Create User'}
                             </Button>
 
                            

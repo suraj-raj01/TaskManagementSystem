@@ -42,7 +42,7 @@ export function Navbar() {
                   </Button>
             </DropdownMenuTrigger>
                 ) : (
-                  <Button variant="outline" className="rounded-xs">
+                  <Button variant="outline" className="rounded-sm">
                     <Link to="/login" className="flex items-center gap-2">
                       Login
                     </Link>

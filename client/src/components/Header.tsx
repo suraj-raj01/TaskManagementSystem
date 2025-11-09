@@ -38,7 +38,7 @@ const Header = () => {
     }, []);
 
     return (
-        <section>
+        <section className="sticky top-0 bg-background">
             <header className="flex w-full h-14 shrink-0 items-center justify-between gap-2 px-4 border-b">
                 <section className="flex items-center justify-center gap-2">
                     <SidebarTrigger className="-ml-1" />

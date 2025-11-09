@@ -303,7 +303,7 @@ export function DataTable<TData, TValue>({
                 size="sm"
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage <= 1}
-                className='rounded-xs cursor-pointer'
+                className='rounded-sm cursor-pointer'
               >
                 Previous
               </Button>
@@ -312,7 +312,7 @@ export function DataTable<TData, TValue>({
                 size="sm"
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage >= pageCount}
-                className='rounded-xs cursor-pointer'
+                className='rounded-sm cursor-pointer'
               >
                 Next
               </Button>

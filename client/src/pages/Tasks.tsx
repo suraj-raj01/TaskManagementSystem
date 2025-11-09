@@ -35,14 +35,14 @@ export default function Tasks() {
       if (searchQuery) {
         response = await axios.get(`${api}/users/search/${searchQuery}`)
         setTasks(response?.data?.category || [])
-        console.log(response.data, "search data");
+        // console.log(response.data, "search data");
       } else {
         response = await axios.get(`${api}/users/${id}?page=${page}&limit=6`)
-        console.log("tasks data", response.data)
+        // console.log("tasks data", response.data)
         setTasks(response?.data?.user?.tasks || [])
         setPage(response?.data?.pagination?.currentPage || 1)
         setPageCount(response?.data?.pagination.totalPages || 1)
-        console.log(response?.data?.pagination.totalPages,'totalpages')
+        // console.log(response?.data?.pagination.totalPages,'totalpages')
       }
       // const { data } = response
       // setPage(data?.pagination?.currentPage || 1)
@@ -109,7 +109,7 @@ export default function Tasks() {
         }
 
         return (
-          <Badge className={`${colorClass} capitalize`}>
+          <Badge className={`${colorClass} capitalize rounded-sm`}>
             {priority}
           </Badge>
         );
@@ -131,7 +131,7 @@ export default function Tasks() {
         }
 
         return (
-          <Badge className={`${colorClass} capitalize`}>
+          <Badge className={`${colorClass} capitalize rounded-sm`}>
             {status}
           </Badge>
         );
