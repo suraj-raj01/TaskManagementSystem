@@ -16,7 +16,7 @@ import UserView from "./pages/UserView"
 import {CreateUsers} from "./pages/CreateUser"
 import Dashboard from "./pages/Dashboard"
 import ChatRoom from "./chats/ChatRoom"
-import ChatLayout from './chats/chatLayout';
+import ChatLayout from './chats/ChatLayout';
 
 const App = () => {
   return (
