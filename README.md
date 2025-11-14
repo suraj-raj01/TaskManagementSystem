@@ -194,11 +194,10 @@ VITE_API_URL=http://localhost:5000
 
 **Admin analytics dashboard**
 
-👤 Author
+**👤 Author**
 
 **SURAJ KUMAR**
-You can update this section with:
 
-Portfolio link
-GitHub
-LinkedIn
+- Portfolio link : 
+- GitHub : https://github.com/suraj-raj01
+- LinkedIn : 
