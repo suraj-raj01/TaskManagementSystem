@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu"
 import { Button } from '../components/ui/button'
-import { Trash, MoreHorizontal, Eye } from 'lucide-react'
+import { Trash, MoreHorizontal, Eye, CalendarPlus } from 'lucide-react'
 import { Skeleton } from '../components/ui/skeleton'
 import { useNavigate } from 'react-router-dom'
 import api from "../API"
@@ -68,6 +68,9 @@ export default function Users() {
   const viewpage = (id: any) => {
     navigate(`/dashboard/userview/${id}`)
   }
+  const assignTask = (id: any) => {
+    navigate(`/dashboard/assigntask/${id}`)
+  }
 
 
   const columns: ColumnDef<any>[] = [
@@ -91,6 +94,10 @@ export default function Users() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => assignTask(row.original._id)}>
+              <CalendarPlus className="mr-2 h-4 w-4" />
+              Assign Task
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={() => viewpage(row.original._id)}>
               <Eye className="mr-2 h-4 w-4" />
               View User

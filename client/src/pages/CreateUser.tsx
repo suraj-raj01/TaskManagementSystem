@@ -1,4 +1,3 @@
-import { cn } from "../lib/utils"
 import { Button } from "../components/ui/button"
 import { Card, CardContent } from "../components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
@@ -11,8 +10,6 @@ import api from "../API"
 import { toast } from "sonner"
 
 export function CreateUsers({
-    className,
-    ...props
 }: React.ComponentProps<"div">) {
 
     const [email, setEmail] = useState('')
@@ -38,7 +35,7 @@ export function CreateUsers({
 
         try {
             const response = await axios.post(`${api}/users/register`, payload);
-            console.log(response.data);
+            // console.log(response.data);
             const user = response.data;
             localStorage.setItem("user", JSON.stringify(user, null, 2))
             toast.success(response.data.message || "Registration Successful ")
@@ -53,9 +50,8 @@ export function CreateUsers({
 
 
     return (
-        <section className="flex flex-col items-center justify-center p-0 md:p-8">
-            <div className={cn("flex flex-col gap-6", className)} {...props}>
-            <Card className="overflow-hidden mt-5 p-1 md:px-5 rounded-sm md:w-2xl">
+        <section className="flex flex-col md:mt-10 items-center justify-center p-0 md:p-6">
+            <Card className="overflow-hidden mt-5 p-1 w-full md:px-5 md:w-3xl">
                 <CardContent className="grid p-0 md:grid-cols-1">
                     <form onSubmit={handleSubmit} className="p-3 md:p-5">
                         <div className="flex flex-col gap-4">
@@ -135,7 +131,6 @@ export function CreateUsers({
         By clicking continue, you agree to our <Link to="#">Terms of Service</Link>{" "}
         and <a href="#">Privacy Policy</a>.
       </div> */}
-        </div>
         </section>
     )
 }

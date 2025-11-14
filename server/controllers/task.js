@@ -54,4 +54,17 @@ const deleteTask = async (req, res) => {
     }   
 };
 
-module.exports = { createTask, getTasks, updateTask, deleteTask, getTaskById };
+const assignTask = async (req, res) => {
+    try {
+        const data = req.body;
+        const task = await TaskModel.create({
+            userId:data.id,
+            ...data.data
+        })
+        res.status(200).json({message:"Task assign successfully",data:task},{status:200})
+    } catch (error) {
+        res.status(500).json({message:"Server error",error},{status:400})
+    }
+}
+
+module.exports = { createTask, getTasks, updateTask, deleteTask, getTaskById,assignTask };

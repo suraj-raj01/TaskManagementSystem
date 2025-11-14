@@ -46,13 +46,14 @@ const getUsers = async (req, res) => {
     const skip = (pageNum - 1) * limitNum;
 
     // Fetch users with pagination
-    const users = await UserModel.find()
+    const filter = { userType: { $ne: 'admin' } };
+    const users = await UserModel.find(filter)
       .skip(skip)
       .limit(limitNum)
       .sort({ createdAt: -1 }); // optional: newest first
 
     // Optional: total count for frontend
-    const totalUsers = await UserModel.countDocuments();
+    const totalUsers = await UserModel.countDocuments(filter);
 
     res.status(200).json({
       success: true,
@@ -65,8 +66,6 @@ const getUsers = async (req, res) => {
     res.status(500).json({ message: "Error fetching users", error });
   }
 };
-
-
 
 const getUserWithTasks = async (req, res) => {
     try {

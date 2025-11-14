@@ -27,7 +27,7 @@ const data = {
 
   navMain: [
     {
-      title: "Profile",
+      title: "Your Profile",
       url: "#",
       items: [
         {
@@ -37,7 +37,7 @@ const data = {
       ],
     },
     {
-      title: "Tasks",
+      title: "Your Tasks",
       url: "#",
       items: [
         {
@@ -54,7 +54,7 @@ const data = {
   ],
   navSecondary: [
     {
-      title: "Profile",
+      title: "Your Profile",
       url: "#",
       items: [
         {
@@ -64,7 +64,7 @@ const data = {
       ],
     },
     {
-      title: "Users",
+      title: "All Users",
       url: "#",
       items: [
         {
@@ -73,21 +73,21 @@ const data = {
         },
       ],
     },
-    {
-      title: "Tasks",
-      url: "#",
-      items: [
-        {
-          title: "Your tasks",
-          url: "/dashboard/tasks",
-        },
-        {
-          title: "Create task",
-          url: "/dashboard/create-task",
-        },
+    // {
+    //   title: "Tasks",
+    //   url: "#",
+    //   items: [
+    //     {
+    //       title: "Your tasks",
+    //       url: "/dashboard/tasks",
+    //     },
+    //     {
+    //       title: "Create task",
+    //       url: "/dashboard/create-task",
+    //     },
 
-      ],
-    },
+    //   ],
+    // },
   ],
 }
 

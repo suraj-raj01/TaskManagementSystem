@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu"
 import { Button } from '../components/ui/button'
-import { Trash, Edit, MoreHorizontal, Eye } from 'lucide-react'
+import { Trash, Edit, MoreHorizontal, Eye, ArrowUpDown } from 'lucide-react'
 import { Skeleton } from '../components/ui/skeleton'
 import { Badge } from '../components/ui/badge'
 import { useNavigate } from 'react-router-dom'
@@ -79,11 +79,33 @@ export default function Tasks() {
   const columns: ColumnDef<any>[] = [
     {
       accessorKey: 'title',
-      header: "Title Name",
+      header: ({column}) =>{
+        return(
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="hover:bg-transparent p-0"
+          >
+            Title
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        )
+      }
     },
     {
       accessorKey: 'description',
-      header: "Description",
+      header: ({column}) =>{
+        return(
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="hover:bg-transparent p-0"
+          >
+            Description
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        )
+      }
     },
     {
       accessorKey: 'dueDate',
