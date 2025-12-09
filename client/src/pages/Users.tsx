@@ -35,7 +35,7 @@ export default function Users() {
       } else {
         response = await axios.get(`${api}/users/get?page=${page}&limit=5`)
         setUsers(response?.data?.users || [])
-        console.log("users data", response.data)
+        // console.log("users data", response.data)
         const { data } = response
         setPageCount(data.totalPages || 1)
         setPage(data.currentPage || 1)

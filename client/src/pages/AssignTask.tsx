@@ -6,7 +6,7 @@ import { Label } from "../components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { toast } from "sonner";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "../components/ui/card";
 import api from "../API";
 import { useNavigate, useParams } from "react-router-dom";
@@ -24,12 +24,12 @@ export default function AssignTask() {
     },
   });
 
-  const {id} = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const onSubmit = async (data: any) => {
     try {
       setLoading(true);
-      await axios.post(`${api}/tasks/assigntask`, { id,data });
+      await axios.post(`${api}/tasks/assigntask`, { id, data });
       toast.success("Task assigned successfully!");
       reset();
       navigate("/dashboard/users");
@@ -40,9 +40,19 @@ export default function AssignTask() {
     }
   };
 
+  const [data, setData] = useState<any>({})
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  useEffect(() => {
+    if (!user || !user.token) {
+      window.location.href = "/login";
+    }
+    setData(user?.user);
+    setLoading(false);
+  }, []);
+
   return (
-   <section className=" p-3">
-    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
+    <section className=" p-3">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
         <div>
           {loading ? (
             <>
@@ -64,63 +74,63 @@ export default function AssignTask() {
           <Skeleton className="h-10 w-32" />
         ) : (
           <Button onClick={() => { navigate("/dashboard/tasks") }}>
-           See All Tasks
+            See All Tasks
           </Button>
         )}
       </div>
-     <Card className="max-w-full rounded-sm mt-10 mx-auto w-md md:w-lg lg:w-3xl p-4">
-        <h1 className="text-2xl font-bold text-center">Create Task</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4">
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <div>
-        <Label className='pb-2'>Title</Label>
-        <Input {...register("title", { required: true })} placeholder="Enter task title" />
-      </div>
+      <Card className="max-w-full rounded-sm mt-10 mx-auto w-md md:w-lg lg:w-3xl p-4">
+        <h1 className="text-2xl font-bold text-center">Assign Task to {data.name}</h1>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4">
+          <section className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <Label className='pb-2'>Title</Label>
+              <Input {...register("title", { required: true })} placeholder="Enter task title" />
+            </div>
 
-      <div>
-        <Label className="pb-2">Description</Label>
-        <Textarea {...register("description", { required: true })} placeholder="Enter task description" />
-      </div>
+            <div>
+              <Label className="pb-2">Description</Label>
+              <Textarea {...register("description", { required: true })} placeholder="Enter task description" />
+            </div>
 
-      <div>
-        <Label className='pb-2'>Due Date</Label>
-        <Input {...register("dueDate", { required: true })} type="date" />
-      </div>
+            <div>
+              <Label className='pb-2'>Due Date</Label>
+              <Input {...register("dueDate", { required: true })} type="date" />
+            </div>
 
-      <div>
-        <Label className='pb-2'>Status</Label>
-        <Select onValueChange={(val) => setValue("status", val)} defaultValue="pending">
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select status" />
-          </SelectTrigger>
-          <SelectContent >
-            <SelectItem value="pending">Pending</SelectItem>
-            <SelectItem value="in-progress">In Progress</SelectItem>
-            <SelectItem value="completed">Completed</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+            <div>
+              <Label className='pb-2'>Status</Label>
+              <Select onValueChange={(val) => setValue("status", val)} defaultValue="pending">
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select status" />
+                </SelectTrigger>
+                <SelectContent >
+                  <SelectItem value="pending">Pending</SelectItem>
+                  <SelectItem value="in-progress">In Progress</SelectItem>
+                  <SelectItem value="completed">Completed</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-      <div>
-        <Label className='pb-2'>Priority</Label>
-        <Select onValueChange={(val) => setValue("priority", val)} defaultValue="medium">
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select priority" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="low">Low</SelectItem>
-            <SelectItem value="medium">Medium</SelectItem>
-            <SelectItem value="high">High</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      </section>
+            <div>
+              <Label className='pb-2'>Priority</Label>
+              <Select onValueChange={(val) => setValue("priority", val)} defaultValue="medium">
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select priority" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="high">High</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </section>
 
-      <Button type="submit" disabled={loading} className="w-full">
-        {loading ? "Assigning..." : "Assign Task"}
-      </Button>
-    </form>
-    </Card>
-   </section>
+          <Button type="submit" disabled={loading} className="w-full">
+            {loading ? "Assigning..." : "Assign Task"}
+          </Button>
+        </form>
+      </Card>
+    </section>
   );
 }
