@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Suspense, lazy } from "react";
 
-import Layout from "./layout";
-import DashboardLayout from "./dashboardLayout";
-import ChatLayout from "./chats/ChatLayout";
+const Layout = lazy(()=>import("./layout"))
+const DashboardLayout = lazy(()=>import("./dashboardLayout"))
+const ChatLayout = lazy(()=>import("./chats/ChatLayout"))
 
 const LoadingPage = lazy(()=>import("./components/loadingPage"))
 const Home = lazy(() => import("./pages/Home"));

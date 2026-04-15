@@ -126,7 +126,7 @@ export function RegisterForm({
                             </div>
                         </div>
                     </form>
-                    <div className="bg-transparent relative flex items-center justify-center">
+                    <div className="bg-transparent border-l relative flex items-center justify-center">
                         <img
                             // src="/public/auth.png"
                             src="https://cdn-icons-png.flaticon.com/512/6389/6389245.png"

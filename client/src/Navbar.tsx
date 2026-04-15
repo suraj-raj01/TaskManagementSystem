@@ -1,5 +1,5 @@
 import { usePathname } from "next/navigation"
-import { Menu} from "lucide-react"
+import { Menu } from "lucide-react"
 import { Button } from "./components/ui/button"
 import { ModeToggle } from "./components/Theme"
 import { useState } from "react"
@@ -75,7 +75,7 @@ export function Navbar() {
                 key={link.name}
                 to={link.to}
                 className={cn(
-                  "text-sm font-medium py-2 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors",
+                  "text-sm font-medium py-2 px-3 rounded-sm hover:bg-accent hover:text-accent-foreground transition-colors",
                   pathname === link.to
                     ? "bg-accent text-accent-foreground"
                     : "text-muted-foreground"

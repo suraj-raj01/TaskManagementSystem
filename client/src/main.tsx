@@ -10,6 +10,6 @@ createRoot(document.getElementById('root')!).render(
       <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
         <App /> 
       </ThemeProvider>
-      <Toaster/>
-  </StrictMode>,
+      <Toaster closeButton richColors position='top-center' duration={1500}/>
+  </StrictMode>
 )

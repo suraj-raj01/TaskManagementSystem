@@ -162,8 +162,8 @@ export function DataTable<TData, TValue>({
         ) : data.length > 0 ? (
           <div className="space-y-3">
             {table.getRowModel().rows.map((row, rowIndex) => (
-              <div 
-                key={rowIndex} 
+              <div
+                key={rowIndex}
                 className="border rounded-lg p-3 space-y-2 bg-card"
                 data-state={row.getIsSelected() && 'selected'}
               >
@@ -185,8 +185,8 @@ export function DataTable<TData, TValue>({
                         {isImage ? (
                           <div className="flex justify-end">
                             <img
-                              src={/^https?:\/\//.test(cellValue as string) 
-                                ? cellValue as string 
+                              src={/^https?:\/\//.test(cellValue as string)
+                                ? cellValue as string
                                 : `${api}/uploads/${cellValue}`}
                               alt="Image"
                               className="w-8 h-8 object-cover rounded-full"
@@ -212,7 +212,7 @@ export function DataTable<TData, TValue>({
       </div>
 
       {/* Table View (for tablet and desktop) */}
-      <div className="hidden sm:block w-full overflow-x-auto rounded-md border">
+      <div className="hidden sm:block w-full overflow-x-auto rounded-sm border">
         <Table className="min-w-[600px]"> {/* force min width so it scrolls */}
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
